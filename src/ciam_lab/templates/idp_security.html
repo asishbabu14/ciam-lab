@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-page="security">
+  <p class="eyebrow">Passkeys</p>
+  <h1>{{ email }}</h1>
+  {% if webauthn %}
+  <p class="lede">Register a passkey on this provider. The soft authenticator used by <code>make demo</code> hits the same endpoints.</p>
+  <button type="button" id="register-passkey">Register a passkey</button>
+  <p id="passkey-status" class="hint"></p>
+  {% if credentials %}
+  <h2>Registered credential prefixes</h2>
+  <ul>
+    {% for cred in credentials %}<li><code>{{ cred }}</code></li>{% endfor %}
+  </ul>
+  {% else %}
+  <p>No passkey is registered yet.</p>
+  {% endif %}
+  <script src="/static/webauthn.js"></script>
+  {% else %}
+  <p>This provider does not store passkeys.</p>
+  {% endif %}
+</section>
+{% endblock %}

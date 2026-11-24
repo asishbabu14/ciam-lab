@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-page="account">
+  <p class="eyebrow">Signed in</p>
+  <h1>{{ user.name }}</h1>
+  <p class="lede">{{ user.email }} · {{ user.sub }} · amr {{ user.amr | join(", ") }}</p>
+  <p>Granted scopes: <code>{{ user.scope }}</code></p>
+  {% if security_url %}
+  <p><a href="{{ security_url }}">Register a passkey at the identity provider</a></p>
+  {% endif %}
+</section>
+<section>
+  <h2>Orders</h2>
+  <table>
+    <thead><tr><th>Id</th><th>Item</th><th>Total</th></tr></thead>
+    <tbody>
+      {% for order in orders %}
+      <tr><td>{{ order.id }}</td><td>{{ order.item }}</td><td>{{ order.total }}</td></tr>
+      {% else %}
+      <tr><td colspan="3">No orders for this subject.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+<section class="split">
+  <article>
+    <h2>ID token</h2>
+    <dl>
+      {% for key in ["iss", "aud", "sub", "nonce", "amr", "exp", "token_use", "federated_sub"] %}
+      {% if key in user.id_claims %}
+      <div><dt>{{ key }}</dt><dd>{{ user.id_claims[key] }}</dd></div>
+      {% endif %}
+      {% endfor %}
+    </dl>
+  </article>
+  <article>
+    <h2>Access token</h2>
+    <dl>
+      {% for key in ["iss", "aud", "sub", "scope", "token_use", "exp", "client_id"] %}
+      {% if key in user.access_claims %}
+      <div><dt>{{ key }}</dt><dd>{{ user.access_claims[key] }}</dd></div>
+      {% endif %}
+      {% endfor %}
+    </dl>
+  </article>
+</section>
+<p><a href="/logout">Sign out</a></p>
+{% endblock %}

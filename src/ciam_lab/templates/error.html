@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-page="error" data-error="{{ code }}">
+  <p class="eyebrow">Sign-in stopped</p>
+  <h1>{{ code }}</h1>
+  <p class="lede">{{ message }}</p>
+  <p><a class="button" href="/">Back to the storefront</a></p>
+</section>
+{% endblock %}

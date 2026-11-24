@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-page="consent">
+  <p class="eyebrow">Consent</p>
+  <h1>{{ client_name }} wants access</h1>
+  <p class="lede">Signed in as {{ email }}. Allow only if these scopes match what you expect.</p>
+  <ul class="scopes">
+    {% for scope in scopes %}
+    <li><strong>{{ scope.name }}</strong> {{ scope.description }}</li>
+    {% endfor %}
+  </ul>
+  <form method="post" action="/consent">
+    <input type="hidden" name="request_id" value="{{ request_id }}">
+    <button type="submit" name="decision" value="allow">Allow</button>
+    <button type="submit" name="decision" value="deny" class="quiet">Deny</button>
+  </form>
+</section>
+{% endblock %}

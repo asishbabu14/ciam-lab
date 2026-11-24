@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · ciam-lab</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="banner">
+    <a class="wordmark" href="/">ciam-lab</a>
+    <p>Personal lab. Synthetic users. Not affiliated with any employer.</p>
+    {% if label %}<span class="pill">{{ label }}</span>{% endif %}
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
