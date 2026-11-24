@@ -1,0 +1,11 @@
+services:
+  lab:
+    build: .
+    ports:
+      - "8000:8000"
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      IDP_MODE: local
+      BIND_HOST: 0.0.0.0
+      PUBLIC_HOST: 127.0.0.1

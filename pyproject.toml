@@ -1,0 +1,50 @@
+[project]
+name = "ciam-lab"
+version = "1.0.0"
+description = "Personal customer identity lab: OIDC, passkeys, and federation with synthetic users."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn>=0.32",
+    "authlib>=1.3",
+    "httpx>=0.27",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.12",
+    "webauthn>=2.2",
+    "cryptography>=43",
+    "cbor2>=5.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.8",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ciam_lab = ["templates/*.html", "static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 116
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ciam_lab"]

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section data-page="login">
+  <p class="eyebrow">Identity provider</p>
+  <h1>Sign in</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post" action="/login">
+    {% if request_id %}<input type="hidden" name="request_id" value="{{ request_id }}">{% endif %}
+    <label>Email <input name="email" type="email" autocomplete="username" required></label>
+    <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
+    <button type="submit">Sign in</button>
+  </form>
+  {% if show_enterprise %}
+  <p><a href="/login/enterprise?request_id={{ request_id }}">Sign in with your organization</a></p>
+  <p class="hint">Connection enterprise-oidc, upstream MOCK:enterprise-idp.</p>
+  {% endif %}
+  {% if show_passkey %}
+  <form id="passkey-form">
+    <input type="hidden" id="passkey-request" value="{{ request_id }}">
+    <label>Passkey email <input id="passkey-email" type="email" value="alice@example.com"></label>
+    <button type="button" id="passkey-button">Sign in with a passkey</button>
+    <p id="passkey-status" class="hint"></p>
+  </form>
+  {% endif %}
+  <aside>
+    <h2>Synthetic passwords</h2>
+    <ul>
+      {% for email, password in hints %}
+      <li><code>{{ email }}</code> / <code>{{ password }}</code></li>
+      {% endfor %}
+    </ul>
+  </aside>
+</section>
+{% if show_passkey %}<script src="/static/webauthn.js"></script>{% endif %}
+{% endblock %}
